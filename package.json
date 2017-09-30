@@ -1,0 +1,30 @@
+{
+  "name": "webpack-config-cli",
+  "version": "1.0.0",
+  "description": "A tool for creating webpack config",
+  "main": "index.js",
+  "bin" : { "webpack-config-cli" : "./index.js" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexcambose/webpack-config-cli.git"
+  },
+  "keywords": [
+    "webpack",
+    "cli"
+  ],
+  "author": "Alexandru Cambose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexcambose/webpack-config-cli/issues"
+  },
+  "homepage": "https://github.com/alexcambose/webpack-config-cli#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "g": "^2.0.1",
+    "object-plain-string": "^1.0.1"
+  }
+}
