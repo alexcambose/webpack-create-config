@@ -25,3 +25,12 @@ $ webpack-create-config
     -h, --help               output usage information
 
 ```
+
+`entry` **required**
+
+```bash
+$ webpack-config-cli -entry ./src/index.js
+```
+```
+$ webpack-config-cli -e ./main.js
+```

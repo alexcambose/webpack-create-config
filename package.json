@@ -1,5 +1,5 @@
 {
-  "name": "webpack-config-cli",
+  "name": "webpack-create-config",
   "version": "1.0.0",
   "description": "A tool for creating webpack config",
   "main": "index.js",

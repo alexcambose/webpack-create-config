@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const colors = require('colors');
+require('colors');
 
 const fs = require('fs');
 const utils = require('./utils');
@@ -29,7 +29,7 @@ if (!program.entry) {
 } else if(program.loaders){
     //loop through each provided loader to display which loader is missing
     for(let loader of program.loaders){
-        if(!utils.getLoader(loader)) { //if the loader is not available
+        if(!utils.getLoaders(loader)) { //if the loader is not available
             console.log(`Loader "${loader}" does not exist!`.red);
             process.exit(0);
         }
@@ -37,7 +37,6 @@ if (!program.entry) {
 }
 
 
-console.log(program.loaders);
 
 const config = create(program);
 fs.writeFile('./webpack.config.js', config, () => {
