@@ -1,4 +1,6 @@
+const path = require('path');
 const loaders = require('./loaders');
+
 module.exports.validDevTool = value => {
     return ['eval',
         'cheap-eval-source-map',
@@ -33,7 +35,7 @@ const pushIfUnique = (array, value) => {
 };
 module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
     const newPackagesToInstall = [];
-    for (let loader of loaders) {//get packages from rules
+    for (let loader of loaders) {
         let rule = {...loader.rule};
         const additionalDependencies = loader.additionalDependencies || [];
         //if rule.use is an object {}
@@ -54,4 +56,24 @@ module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
 
 
     return [...packagesToInstall, ...newPackagesToInstall];
+};
+
+const resolveDotSlash = path => { //add ./ to a path
+    if(!(path[0] === '.' && path[1] === '/'))
+        return './' + path;
+    return path;
+};
+
+module.exports.resolveEntry = entries => {
+    let obj = {};
+    if(Array.isArray(entries) && entries.length > 1){
+        for(let entry of entries) {
+            entry = resolveDotSlash(entry);
+            obj[path.parse(entry).name] = entry;
+        }
+        return obj;
+    }else{
+        return resolveDotSlash(entries[0]);
+    }
+
 };

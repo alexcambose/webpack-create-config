@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A tool for creating webpack config",
   "main": "index.js",
-  "bin" : { "webpack-config-cli" : "./index.js" },
+  "bin" : { "webpack-create-config" : "./index.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,7 +24,6 @@
   "dependencies": {
     "colors": "^1.1.2",
     "commander": "^2.11.0",
-    "g": "^2.0.1",
     "object-plain-string": "^1.0.1"
   }
 }

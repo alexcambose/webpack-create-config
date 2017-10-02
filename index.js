@@ -4,16 +4,17 @@ const program = require('commander');
 require('colors');
 
 const fs = require('fs');
-const utils = require('./utils');
-const create = require('./create');
+const utils = require('./src/utils');
+const create = require('./src/create');
 
 program
     .version(require('./package.json').version)
-    .option('-e, --entry <filename>', 'A filename which acts as the entry point to build your project')
-    .option('-o, --output <filename>', 'The output directory as an absolute path')
-    .option('-t, --devtool [style]', 'Enhance the debugging process by adding source maps')
+    .option('-e, --entry <filename>', 'Entry point/points to build your project', value => value.split(','))
+    .option('-o, --output <filename>', 'The output filename path')
+    .option('-c, --context [directory]', 'The base directory')
+    .option('-d, --devtool [style]', 'Enhance the debugging process by adding source maps')
     .option('-l, --loaders [loaders]', 'Add loaders', value => value.split(','))
-    .option('-d, --dev-server', 'Add webpack-dev-server')
+    .option('-s, --devserver', 'Add webpack-dev-server')
     .option('-w, --watch', 'Watch files and recompile whenever they change')
     .parse(process.argv);
 
