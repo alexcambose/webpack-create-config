@@ -16,6 +16,7 @@ program
     .option('-l, --loaders [loaders]', 'Add loaders', value => value.split(','))
     .option('-s, --devserver', 'Add webpack-dev-server')
     .option('-w, --watch', 'Watch files and recompile whenever they change')
+    .option('-a, --autoinstall', 'Automatically install required dependencies')
     .parse(process.argv);
 
 if (!program.entry) {
@@ -36,7 +37,6 @@ if (!program.entry) {
         }
     }
 }
-
 
 
 const config = create(program);

@@ -59,6 +59,6 @@ module.exports = {
                 }
             }
         },
-        additionalDependencies: ['babel-core', 'babel-preset-es2015', 'babel-preset-react']
+        additionalDependencies: ['babel-core', 'babel-preset-es2015', 'babel-preset-react', 'react', 'react-dom'] //also add react and react-dom :)
     },
 };

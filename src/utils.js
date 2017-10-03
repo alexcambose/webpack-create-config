@@ -36,7 +36,8 @@ const pushIfUnique = (array, value) => {
 module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
     const newPackagesToInstall = [];
     for (let loader of loaders) {
-        let rule = {...loader.rule};
+        let rule = Object.assign({}, loader.rule);
+
         const additionalDependencies = loader.additionalDependencies || [];
         //if rule.use is an object {}
         if (typeof rule.use === 'object' && !Array.isArray(rule.use)) {

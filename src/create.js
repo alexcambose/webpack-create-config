@@ -2,10 +2,10 @@ const path = require('path');
 const ops = require('object-plain-string');
 const utils = require('./utils');
 
-module.exports = ({entry, output, context, devtool, loaders, devserver, watch}) => {
+module.exports = ({entry, output, context, devtool, loaders, devserver, watch, autoinstall}) => {
     let packagesToInstall = [];
     const obj = {
-        entry: utils.resolveEntry(entry),
+        ent4ry: utils.resolveEntry(entry),
         output: {
             filename: path.parse(output).base,
             path: '~!~path.resolve(__dirname, \'' + path.parse(output).dir + '\')',
@@ -42,13 +42,17 @@ module.exports = ({entry, output, context, devtool, loaders, devserver, watch}) 
         };
     }
 
+    if(autoinstall){
+
+    }
+
     return `/* 
 * This file was generated with ${require('./../package.json').name} version ${require('./../package.json').version} 
 * please run the following command to install requried packages
 * npm install --save-dev webpack ${packagesToInstall.join(' ')}
 * or
 * yarn add webpack ${packagesToInstall.join(' ')}
-*/ 
+*/
 const path = require('path');
 module.exports = ${ops(obj)};`;
 };
