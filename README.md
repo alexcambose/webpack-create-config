@@ -17,17 +17,18 @@ $ webpack-create-config
   Options:
 
     -V, --version              output the version number
-    -e, --entry <filename>     A filename which acts as the entry point to build your project
+    -e, --entry <filename>     Entry point/points to build your project
     -o, --output <filename>    The output filename path
     -c, --context [directory]  The base directory
-    -t, --devtool [style]      Enhance the debugging process by adding source maps
+    -d, --devtool [style]      Enhance the debugging process by adding source maps
     -l, --loaders [loaders]    Add loaders
-    -d, --devserver            Add webpack-dev-server
+    -s, --devserver            Add webpack-dev-server
     -w, --watch                Watch files and recompile whenever they change
+    -a, --autoinstall          Automatically install required dependencies
     -h, --help                 output usage information
-
-
 ```
+
+
 ### Entry
 [official docs](https://webpack.js.org/configuration/entry-context/#entry)
 

@@ -3,7 +3,7 @@
 const program = require('commander');
 require('colors');
 
-const utils = require('./src/utils');
+const utils = require('./src/utils/');
 const create = require('./src/create');
 
 program
@@ -39,4 +39,3 @@ if (!program.entry) {
 
 
 create(program);
-
