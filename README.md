@@ -27,7 +27,15 @@ $ webpack-create-config
     -a, --autoinstall          Automatically install required dependencies
     -h, --help                 output usage information
 ```
-
+## Table of contents
+[Entry](#entry)
+[Output](#output)
+[Context](#context)
+[Devtool](#devtool)
+[Loaders](#loaders)
+[DevServer](#devserver)
+[Watch](#watch)
+[Autoinstall](#autoinstall)
 
 ### Entry
 [official docs](https://webpack.js.org/configuration/entry-context/#entry)
@@ -82,8 +90,23 @@ output: {
     path: path.resolve(__dirname, './dist'),
 },
 ```
+### Context
+[official docs](https://webpack.js.org/configuration/entry-context/#context)
 
+`-c, --context` *optional*
 
+```
+$ webpack-create-config --context app
+```
+```
+$ webpack-create-config -c app
+```
+in `webpack.config.js`
+```
+...
+context: path.resolve(__dirname, 'app'),
+...
+```
 
 ### Devtool
 
@@ -104,4 +127,59 @@ devtool: 'cheap-eval-source-map',
 ...
 ```
 
-*todo docs...*
+### Loaders
+[official docs](https://webpack.js.org/concepts/loaders/)
+
+`-d, --devtool` *optional*
+
+```
+$ webpack-create-config  ... --loaders css,babel-es6 ...
+```
+```
+$ webpack-create-config ... -l css,babel-es6 ...
+```
+in `webpack.config.js`
+```
+...
+module: {
+    rules: [{
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+            loader: 'babel-loader',
+            options: {
+                presets: ['es2015',],
+            },
+        },
+    },{
+        test: /\.css$/,
+        use: ['style-loader','css-loader',],
+    },],
+},
+...
+```
+List of avaliable loaders
+
+**css** - [css-loader](https://github.com/webpack-contrib/css-loader)
+
+**less** - [less-loader](https://github.com/webpack-contrib/less-loader)
+
+**sass** - [sass-loader](https://github.com/webpack-contrib/sass-loader)
+
+**json** - [json-loader](https://github.com/webpack-contrib/json-loader)
+
+**coffee** - [coffee-loader](https://github.com/webpack-contrib/coffee-loader)
+
+**file** - [file-loader](https://github.com/webpack-contrib/file-loader)
+
+**url** - [url-loader](https://github.com/webpack-contrib/url-loader)
+
+**raw** - [raw-loader](https://github.com/webpack-contrib/raw-loader)
+
+**html** - [html-loader](https://github.com/webpack-contrib/html-loader)
+
+**json5** - [json5-loader](https://github.com/webpack-contrib/json5-loader)
+
+**yaml** - [yaml-loader](https://github.com/webpack-contrib/yaml-loader)
+
+**img** - [img-loader](https://github.com/webpack-contrib/img-loader)
