@@ -3,7 +3,6 @@
 const program = require('commander');
 require('colors');
 
-const fs = require('fs');
 const utils = require('./src/utils');
 const create = require('./src/create');
 
@@ -39,7 +38,5 @@ if (!program.entry) {
 }
 
 
-const config = create(program);
-fs.writeFile('./webpack.config.js', config, () => {
-    console.log('Config created!'.green);
-});
+create(program);
+

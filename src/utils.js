@@ -1,5 +1,6 @@
 const path = require('path');
 const loaders = require('./loaders');
+const colors = require('colors');
 
 module.exports.validDevTool = value => {
     return ['eval',
@@ -15,6 +16,16 @@ module.exports.validDevTool = value => {
         'hidden-source-map',
         'nosources-source-map'].indexOf(value) !== -1;
 };
+const log = message => {
+    console.log(message);
+    return message;
+};
+module.exports.log = log;
+const logSuccess = message => {
+    console.log(log(message));
+    return log(message);
+};
+module.exports.logSuccess = logSuccess;
 module.exports.getLoaders = values => {
     //if the provided loader is not an array convert it into one so we can loop
     if (!Array.isArray(values)) values = [values];
