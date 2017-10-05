@@ -5,17 +5,17 @@ const log = require('./log');
 module.exports.log = log;
 module.exports.validDevTool = value => {
     return ['eval',
-        'cheap-eval-source-map',
-        'cheap-module-eval-source-map',
-        'eval-source-map',
-        'cheap-source-map',
-        'cheap-module-source-map',
-        'inline-cheap-source-map',
-        'inline-cheap-module-source-map',
-        'source-map',
-        'inline-source-map',
-        'hidden-source-map',
-        'nosources-source-map'].indexOf(value) !== -1;
+            'cheap-eval-source-map',
+            'cheap-module-eval-source-map',
+            'eval-source-map',
+            'cheap-source-map',
+            'cheap-module-source-map',
+            'inline-cheap-source-map',
+            'inline-cheap-module-source-map',
+            'source-map',
+            'inline-source-map',
+            'hidden-source-map',
+            'nosources-source-map'].indexOf(value) !== -1;
 };
 
 module.exports.getLoaders = values => {
@@ -33,7 +33,7 @@ module.exports.getLoaders = values => {
     return array;
 };
 const pushIfUnique = (array, value) => {
-    if(array.indexOf(value) === -1)
+    if (array.indexOf(value) === -1)
         array.push(value);
 };
 module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
@@ -54,7 +54,7 @@ module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
                 pushIfUnique(newPackagesToInstall, thePackage.split('?')[0]);//get only the package name from the query ex: ['css-loader?key=value'] -> css-loader
             }
         }
-        for(let additionalDependency of additionalDependencies)
+        for (let additionalDependency of additionalDependencies)
             pushIfUnique(newPackagesToInstall, additionalDependency);
     }
 
@@ -63,20 +63,20 @@ module.exports.appendPackagesToInstall = (loaders, packagesToInstall) => {
 };
 
 const resolveDotSlash = path => { //add ./ to a path
-    if(!(path[0] === '.' && path[1] === '/'))
+    if (!(path[0] === '.' && path[1] === '/'))
         return './' + path;
     return path;
 };
 
 module.exports.resolveEntry = entries => {
     let obj = {};
-    if(Array.isArray(entries) && entries.length > 1){
-        for(let entry of entries) {
+    if (Array.isArray(entries) && entries.length > 1) {
+        for (let entry of entries) {
             entry = resolveDotSlash(entry);
             obj[path.parse(entry).name] = entry;
         }
         return obj;
-    }else{
+    } else {
         return resolveDotSlash(entries[0]);
     }
 };

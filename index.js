@@ -24,13 +24,13 @@ if (!program.entry) {
 } else if (!program.output) {
     console.log('Output path cannot be empty'.red);
     process.exit(0);
-} else if (program.devtool && !utils.validDevTool(program.devtool)){
+} else if (program.devtool && !utils.validDevTool(program.devtool)) {
     console.log(`Devtool "${program.devtool}" does not exist!`.red);
     process.exit(0);
-} else if(program.loaders){
+} else if (program.loaders) {
     //loop through each provided loader to display which loader is missing
-    for(let loader of program.loaders){
-        if(!utils.getLoaders(loader)) { //if the loader is not available
+    for (let loader of program.loaders) {
+        if (!utils.getLoaders(loader)) { //if the loader is not available
             console.log(`Loader "${loader}" does not exist!`.red);
             process.exit(0);
         }

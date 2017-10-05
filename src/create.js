@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const child_process = require('child_process');
 
 const fs = require('fs');
 const path = require('path');
@@ -6,7 +6,7 @@ const ops = require('object-plain-string');
 const utils = require('./utils/');
 
 module.exports = ({entry, output, context, devtool, loaders, devserver, watch, autoinstall}) => {
-    let packagesToInstall = [];
+    let packagesToInstall = ['webpack'];
     const obj = {
         ent4ry: utils.resolveEntry(entry),
         output: {
@@ -14,29 +14,29 @@ module.exports = ({entry, output, context, devtool, loaders, devserver, watch, a
             path: '~!~path.resolve(__dirname, \'' + path.parse(output).dir + '\')',
         }
     };
-    if(context){
-        obj.context = '~!~path.resolve(__dirname, \''+ context +'\')';
+    if (context) {
+        obj.context = '~!~path.resolve(__dirname, \'' + context + '\')';
     }
-    if(devtool) obj.devtool = devtool;
+    if (devtool) obj.devtool = devtool;
 
-    if(loaders){
+    if (loaders) {
         const allLoaders = utils.getLoaders(loaders);
         obj.module = {};
         packagesToInstall = utils.appendPackagesToInstall(allLoaders, packagesToInstall);
 
         obj.module.rules = allLoaders.map(e => e.rule);
     }
-    
-    if(devserver){
+
+    if (devserver) {
         obj.devServer = {
-            contentBase: '~!~path.join(__dirname, \''+path.parse(output).dir+'\')',
+            contentBase: '~!~path.join(__dirname, \'' + path.parse(output).dir + '\')',
             compress: true,
             port: 9000
         };
         packagesToInstall.push('webpack-dev-server');
     }
 
-    if(watch){
+    if (watch) {
         obj.watch = true;
         obj.watchOptions = {
             ignored: /node_modules/
@@ -46,30 +46,31 @@ module.exports = ({entry, output, context, devtool, loaders, devserver, watch, a
     const config = `/* 
 * This file was generated with ${require('./../package.json').name} version ${require('./../package.json').version} 
 * please run the following command to install dependencies
-* npm install --save-dev webpack ${packagesToInstall.join(' ')}
+* npm install --save-dev ${packagesToInstall.join(' ')}
 * or
-* yarn add webpack ${packagesToInstall.join(' ')}
+* yarn add ${packagesToInstall.join(' ')}
 */
 const path = require('path');
 module.exports = ${ops(obj)};`;
 
+    if (!fs.existsSync('./package.json')) {
+        utils.log.warning('Package.json file does not exist!');
+        return;
+    }
+
+    //write to disk
     fs.writeFileSync('./webpack.config.js', config);
     utils.log.success('Config created in ' + path.normalize(path.resolve('./') + '/webpack.config.js').bold);
 
     //install required dependencies
-    if(autoinstall){
-        utils.log.info(`Installing dependencies with ${'npm install'.bold}`);
-        for(let dependency of packagesToInstall){
+    if (autoinstall) {
+        utils.log.info(`Installing ${packagesToInstall.join(', ').bold} with ${'npm install'}...`);
 
-            console.log(`Installing ${dependency.bold} with npm...`.cyan);
-            exec('npm install -S ' + dependency, (err, stdout, stderr) => {
-                if (err) {
-                    utils.log.error(`${dependency.bold} couldn't be installed!`);
-                    utils.log.error(stderr);
-                    return;
-                }
-                utils.success(`${dependency.bold} has been installed!`.green);
-            });
+        for (let i = 0; i < packagesToInstall.length; i++) {
+            utils.log.progress(i + 1, packagesToInstall.length, ' installing ' + packagesToInstall[i].bold);
+
+            child_process.execSync('npm install -S ' + packagesToInstall[i], {stdio: ['ignore', 'ignore', 'ignore']});
         }
+
     }
 };
