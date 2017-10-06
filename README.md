@@ -183,3 +183,13 @@ List of avaliable loaders
 **yaml** - [yaml-loader](https://github.com/webpack-contrib/yaml-loader)
 
 **img** - [img-loader](https://github.com/webpack-contrib/img-loader)
+
+### DevServer
+[official docs](https://webpack.js.org/configuration/dev-server/#devserver)
+```
+$ webpack-create-config -d
+```
+```
+$ webpack-create-config -d
+```
+
