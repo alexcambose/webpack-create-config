@@ -1,8 +1,8 @@
 require('colors');
 const log = message => console.log(message);
 
-module.exports.success = message => log(message.green);
-module.exports.error = message => log(message.red);
+module.exports.success = message => log(message.black.bgGreen);
+module.exports.error = message => log(message.white.bgRed);
 module.exports.info = message => log(message.cyan);
 module.exports.warning = message => log(message.black.bgYellow);
 

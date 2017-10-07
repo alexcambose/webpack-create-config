@@ -28,14 +28,14 @@ $ webpack-create-config
     -h, --help                 output usage information
 ```
 ## Table of contents
-[Entry](#entry)
-[Output](#output)
-[Context](#context)
-[Devtool](#devtool)
-[Loaders](#loaders)
-[DevServer](#devserver)
-[Watch](#watch)
-[Autoinstall](#autoinstall)
+* [Entry](#entry)
+* [Output](#output)
+* [Context](#context)
+* [Devtool](#devtool)
+* [Loaders](#loaders)
+* [DevServer](#devserver)
+* [Watch](#watch)
+* [Autoinstall](#autoinstall)
 
 ### Entry
 [official docs](https://webpack.js.org/configuration/entry-context/#entry)
@@ -158,7 +158,7 @@ module: {
 },
 ...
 ```
-List of avaliable loaders
+List of avaliable loaders you can add using the CLI
 
 **css** - [css-loader](https://github.com/webpack-contrib/css-loader)
 
@@ -180,16 +180,56 @@ List of avaliable loaders
 
 **json5** - [json5-loader](https://github.com/webpack-contrib/json5-loader)
 
-**yaml** - [yaml-loader](https://github.com/webpack-contrib/yaml-loader)
+**yaml** - [yaml-loader](https://github.com/webpack-contrib/yaml-frontmatter-loader)
 
-**img** - [img-loader](https://github.com/webpack-contrib/img-loader)
+**img** - [img-loader](https://github.com/thetalecrafter/img-loader)
+
+*you may add more loaders later by manually editing the `webpack.config.js` file*
 
 ### DevServer
 [official docs](https://webpack.js.org/configuration/dev-server/#devserver)
 ```
-$ webpack-create-config -d
+$ webpack-create-config ... -d ...
 ```
 ```
-$ webpack-create-config -d
+$ webpack-create-config ... --devserver ...
+```
+in `webpack.config.js`
+```
+...
+devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+},
+...
+```
+also adds [webpack-dev-server](https://github.com/webpack/webpack-dev-server) as a dependency
+
+
+### Watch
+[official docs](https://webpack.js.org/configuration/watch/)
+```
+$ webpack-create-config ... -w ...
+```
+```
+$ webpack-create-config ... --watch ...
+```
+in `webpack.config.js`
+```
+...
+watch: true,
+watchOptions: {
+    ignored: /node_modules/,
+},
+...
 ```
 
+### Autoinstall
+```
+$ webpack-create-config ... -a ...
+```
+```
+$ webpack-create-config ... --autoinstall ...
+```
+Automatically install all required dependecies (ex: webpack, file-loader, style-loader) with `npm install` (ex: `npm install -S webpack file-loader style-loader`)

@@ -19,19 +19,19 @@ program
     .parse(process.argv);
 
 if (!program.entry) {
-    console.log('Entry cannot be empty'.red);
+    utils.log.error('Entry cannot be empty');
     process.exit(0);
 } else if (!program.output) {
-    console.log('Output path cannot be empty'.red);
+    utils.log.error('Output path cannot be empty');
     process.exit(0);
 } else if (program.devtool && !utils.validDevTool(program.devtool)) {
-    console.log(`Devtool "${program.devtool}" does not exist!`.red);
+    utils.log.error(`Devtool "${program.devtool}" does not exist!`);
     process.exit(0);
 } else if (program.loaders) {
     //loop through each provided loader to display which loader is missing
     for (let loader of program.loaders) {
         if (!utils.getLoaders(loader)) { //if the loader is not available
-            console.log(`Loader "${loader}" does not exist!`.red);
+            utils.log.error(`Loader "${loader}" does not exist!`);
             process.exit(0);
         }
     }

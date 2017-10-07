@@ -30,7 +30,7 @@ module.exports = {
         rule: {test: /\.json5$/, use: 'json5-loader'}
     },
     'yaml': {
-        rule: {text: /\.yml$/, use: ['json-loader', 'yaml-frontmatter-loader']},
+        rule: {text: /\.md$/, use: ['json-loader', 'yaml-frontmatter-loader']},
     },
     'img': {
         rule: {test: /\.(jpe?g|png|gif|svg)$/i, use: ['url-loader?limit=1000', 'img-loader']}

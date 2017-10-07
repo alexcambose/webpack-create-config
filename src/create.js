@@ -8,7 +8,7 @@ const utils = require('./utils/');
 module.exports = ({entry, output, context, devtool, loaders, devserver, watch, autoinstall}) => {
     let packagesToInstall = ['webpack'];
     const obj = {
-        ent4ry: utils.resolveEntry(entry),
+        entry: utils.resolveEntry(entry),
         output: {
             filename: path.parse(output).base,
             path: '~!~path.resolve(__dirname, \'' + path.parse(output).dir + '\')',
@@ -42,21 +42,19 @@ module.exports = ({entry, output, context, devtool, loaders, devserver, watch, a
             ignored: /node_modules/
         };
     }
-
     const config = `/* 
 * This file was generated with ${require('./../package.json').name} version ${require('./../package.json').version} 
 * please run the following command to install dependencies
 * npm install --save-dev ${packagesToInstall.join(' ')}
-* or
+* or with yarn
 * yarn add ${packagesToInstall.join(' ')}
 */
 const path = require('path');
 module.exports = ${ops(obj)};`;
 
-    if (!fs.existsSync('./package.json')) {
-        utils.log.warning('Package.json file does not exist!');
-        return;
-    }
+    //warn user that package.json file is missing
+    if (!fs.existsSync('./package.json')) utils.log.warning('Package.json file does not exist!');
+
 
     //write to disk
     fs.writeFileSync('./webpack.config.js', config);
@@ -65,12 +63,12 @@ module.exports = ${ops(obj)};`;
     //install required dependencies
     if (autoinstall) {
         utils.log.info(`Installing ${packagesToInstall.join(', ').bold} with ${'npm install'}...`);
-
+        
+        //installing all packages with one 'npm install' command would be much faster but progress can't be tracked...sacrificing speed for ux
         for (let i = 0; i < packagesToInstall.length; i++) {
             utils.log.progress(i + 1, packagesToInstall.length, ' installing ' + packagesToInstall[i].bold);
 
             child_process.execSync('npm install -S ' + packagesToInstall[i], {stdio: ['ignore', 'ignore', 'ignore']});
         }
-
     }
 };
